@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import HomeScreen from "./(tabs)";
 
 export default function WelcomeScreen() {
   const navigation = useNavigation();
