@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, Text, Platform } from 'react-native';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from './firebaseConfig';  // import from wherever you initialized Firebase
+import { db } from '../services/firebaseConfig';  // import from wherever you initialized Firebase
 
 const Index = () => {
   useEffect(() => {
