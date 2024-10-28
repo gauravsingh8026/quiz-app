@@ -1,4 +1,5 @@
 import { StyleSheet, View } from "react-native";
+import { ScrollView } from "react-native";
 
 import { useTheme } from "react-native-paper";
 export default function Bg({ children }) {

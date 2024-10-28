@@ -1,7 +1,9 @@
 import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Bg from "../components/Bg";
+import { Button, Text, TextInput } from "react-native-paper";
+import AuthScreen from "../components/AuthScreen";
 export default function WelcomeScreen() {
   const navigation = useNavigation();
 
@@ -11,8 +13,7 @@ export default function WelcomeScreen() {
 
   return (
     <Bg>
-      <Text style={styles.logo}>QuizApp</Text>
-      <Button title="Continue as Guest" onPress={continueAsGuest} />
+      <AuthScreen />
     </Bg>
   );
 }

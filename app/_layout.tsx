@@ -15,7 +15,7 @@ import Bg from '@/components/Bg';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  // const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
@@ -29,7 +29,7 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   }
-  const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
   const toggleTheme = () => {
     setIsDarkTheme(!isDarkTheme);
   };
@@ -37,13 +37,13 @@ export default function RootLayout() {
   return (
 
     <PaperProvider theme={theme}>
-      <Bg>
          <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="index" options={{ headerShown: false,headerTitle:'Quiz-App'}} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
-      </Bg>
+      {/* <Bg>
+      </Bg> */}
        
     </PaperProvider>
     
