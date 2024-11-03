@@ -1,31 +1,28 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import Bg from "../components/Bg";
-import { Button, Text, TextInput } from "react-native-paper";
 import AuthScreen from "../components/AuthScreen";
+
+import { HelloWave as LoadingScreen } from "@/components/HelloWave";
+
+import { useEffect, useState } from "react";
+
+import { useRouter } from "expo-router";
+import { useCurrentUser } from "@/context/CurrentUserContext";
 export default function WelcomeScreen() {
-  const navigation = useNavigation();
+  const router = useRouter();
 
-  const continueAsGuest = () => {
-    navigation.navigate("(tabs)"); // Navigates to the quiz screen
-  };
+  const { currentUser, loading } = useCurrentUser();
+  const [redirecting, setRedirecting] = useState(true);
 
-  return (
-    <Bg>
-      <AuthScreen />
-    </Bg>
-  );
+  useEffect(() => {
+    if (!loading) {
+      if (currentUser) {
+        router.replace("/home"); // Redirect to main screen if logged in
+      } else {
+        setRedirecting(false); // Only set redirecting to false if no user
+      }
+    }
+  }, [currentUser, loading, router]);
+
+  return <Bg>{loading || redirecting ? <LoadingScreen /> : <AuthScreen />}</Bg>;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  logo: {
-    fontSize: 32,
-    marginBottom: 20,
-  },
-});

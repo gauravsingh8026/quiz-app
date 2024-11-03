@@ -2,20 +2,44 @@ import React, { useState } from "react";
 import { View, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
 import { signUp, login } from "@/services/authService";
 import { Text, Button, TextInput } from "react-native-paper";
+import { useNavigation } from "expo-router";
 const AuthScreen = () => {
+  const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const handleAuth = async () => {
-    if (isSignUp) {
-      // Sign up logic here
-      const response = await signUp(email, password);
-      console.log(response);
-    } else {
-      // Sign in logic here
-      const response = await login(email, password);
-      console.log(response);
+    // Basic validation
+    if (!email || !password) {
+      setError("Please fill in both email and password.");
+      return;
+    }
+
+    setLoading(true); // Start loading
+    setError(null); // Clear any previous errors
+
+    try {
+      const response = isSignUp
+        ? await signUp(email, password)
+        : await login(email, password);
+      console.log("Authenticated user:", response);
+
+      navigation.navigate("(tabs)");
+    } catch (error) {
+      // Handle specific error cases
+      if (error.code === "auth/wrong-password") {
+        setError("Incorrect password. Please try again.");
+      } else if (error.code === "auth/user-not-found") {
+        setError("No account found with this email.");
+      } else {
+        setError("Authentication failed. Please try again.");
+      }
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -52,7 +76,16 @@ const AuthScreen = () => {
           mode="outlined"
           style={{ marginBottom: 16 }}
         />
-
+        <View>
+          {error && (
+            <Text
+              variant="bodyMedium"
+              style={{ color: "red", marginBottom: 8 }}
+            >
+              {error}
+            </Text>
+          )}
+        </View>
         <Button
           mode="contained"
           title={isSignUp ? "Sign Up" : "Sign In"}
