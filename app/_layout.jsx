@@ -13,7 +13,7 @@ import { CurrentUserProvider } from "@/context/CurrentUserContext";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(true);
 
   // const colorScheme = useColorScheme();
   const [loaded] = useFonts({
@@ -38,7 +38,6 @@ export default function RootLayout() {
     <CurrentUserProvider>
       <PaperProvider theme={theme}>
         <Stack>
-          <Slot />{" "}
           {/* Essential for handling nested routes based on current state */}
           {/* Define screens and their options */}
           <Stack.Screen

@@ -1,43 +1,86 @@
-import { Image, StyleSheet, Platform } from "react-native";
+import { Image, StyleSheet, Platform, View, ScrollView } from "react-native";
 
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import Bg from "@/components/Bg";
-import { Button, useTheme } from "react-native-paper";
+import { Button, Text, useTheme } from "react-native-paper";
 import { Link, useNavigation } from "expo-router";
 export default function HomeScreen() {
   const navigation = useNavigation();
   const theme = useTheme();
   return (
     <Bg>
-      <Button
-        mode="elevated"
-        theme={theme}
-        onPress={() => navigation.navigate("quiz")}
-      >
-        Start a Quiz
-      </Button>
+      <View style={styles.container}>
+        <View
+          style={[
+            styles.fixedTopSection,
+            { backgroundColor: theme.colors.primaryContainer },
+          ]}
+        >
+          <View style={styles.buttonContainer}>
+            <Link href={"/(tabs)/home/quiz"} asChild>
+              <Button
+                mode="elevated"
+                theme={theme}
+                buttonColor={theme.colors.primary}
+                textColor={theme.colors.onPrimary}
+              >
+                Start a Quiz
+              </Button>
+            </Link>
+            <Link href={"/(tabs)/home/multiplayer"} asChild>
+              <Button
+                mode="elevated"
+                theme={theme}
+                buttonColor={theme.colors.primary}
+                textColor={theme.colors.onPrimary}
+              >
+                Multiplayer
+              </Button>
+            </Link>
+          </View>
+        </View>
+        <ScrollView
+          contentContainerStyle={[
+            styles.scrollContent,
+            { backgroundColor: theme.colors.secondaryContainer },
+          ]}
+        >
+          <Text
+            variant="headlineLarge"
+            style={{
+              textAlign: "center",
+              color: theme.colors.onSecondaryContainer,
+            }}
+          >
+            Categories
+          </Text>
+        </ScrollView>
+      </View>
     </Bg>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  container: {
+    flex: 1,
+  },
+  fixedTopSection: {
+    width: "100%",
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+  },
+  buttonContainer: {
     flexDirection: "row",
+    justifyContent: "space-around",
     alignItems: "center",
     gap: 8,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
+  scrollContent: {
+    flexGrow: 1,
+    paddingTop: 10, // Adjust to avoid overlapping with top section
+    paddingHorizontal: 16,
   },
 });
