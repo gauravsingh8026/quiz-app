@@ -4,15 +4,20 @@ import React from 'react';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { useTheme } from 'react-native-paper';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-
+  const theme = useTheme()
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        // tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
+        tabBarActiveBackgroundColor: theme.colors.primaryContainer,
+        tabBarInactiveBackgroundColor: theme.colors.inversePrimary,
+        tabBarActiveTintColor: theme.colors.onPrimaryContainer,
+        tabBarInactiveTintColor: theme.colors.onPrimaryContainer
       }}>
       <Tabs.Screen
         name="home"

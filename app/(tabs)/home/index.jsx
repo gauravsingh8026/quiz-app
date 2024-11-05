@@ -27,7 +27,7 @@ export default function HomeScreen() {
                 buttonColor={theme.colors.primary}
                 textColor={theme.colors.onPrimary}
               >
-                Start a Quiz
+                Practice
               </Button>
             </Link>
             <Link href={"/(tabs)/home/multiplayer"} asChild>
@@ -37,7 +37,27 @@ export default function HomeScreen() {
                 buttonColor={theme.colors.primary}
                 textColor={theme.colors.onPrimary}
               >
-                Multiplayer
+                Play
+              </Button>
+            </Link>
+            <Link href={"/(tabs)/home/multiplayer"} asChild>
+              <Button
+                mode="elevated"
+                theme={theme}
+                buttonColor={theme.colors.primary}
+                textColor={theme.colors.onPrimary}
+              >
+                Create a room
+              </Button>
+            </Link>
+            <Link href={"/(tabs)/home/multiplayer"} asChild>
+              <Button
+                mode="elevated"
+                theme={theme}
+                buttonColor={theme.colors.primary}
+                textColor={theme.colors.onPrimary}
+              >
+                Join a room
               </Button>
             </Link>
           </View>
@@ -77,6 +97,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     gap: 8,
+    flexWrap: "wrap",
   },
   scrollContent: {
     flexGrow: 1,

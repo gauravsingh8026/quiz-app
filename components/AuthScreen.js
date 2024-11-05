@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
 import { signUp, login } from "@/services/authService";
-import { Text, Button, TextInput } from "react-native-paper";
+import { Text, Button, TextInput, useTheme } from "react-native-paper";
 import { useNavigation } from "expo-router";
 const AuthScreen = () => {
+  const theme = useTheme();
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,7 +49,9 @@ const AuthScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
+    <SafeAreaView
+      style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+    >
       <ScrollView
         contentContainerStyle={{
           flex: 1,
@@ -98,7 +101,10 @@ const AuthScreen = () => {
           onPress={() => setIsSignUp(!isSignUp)}
           style={{ marginTop: 16 }}
         >
-          <Text variant="bodyMedium" style={{ color: "blue" }}>
+          <Text
+            variant="bodyMedium"
+            style={{ color: theme.colors.onBackground }}
+          >
             {isSignUp
               ? "Already have an account? Sign In"
               : "Don’t have an account? Sign Up"}
