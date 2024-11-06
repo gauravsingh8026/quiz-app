@@ -2,7 +2,66 @@ import React, { useState } from "react";
 import { View, Text } from "react-native";
 import { Button, TextInput, RadioButton } from "react-native-paper";
 import Bg from "@/components/Bg";
+import DropdownMenu from "../../../components/Dropdown";
 
+const dropdownData = [
+  {
+    label: "General Knowledge",
+    value: "general",
+  },
+  {
+    label: "Science",
+    value: "science",
+  },
+  {
+    label: "History",
+    value: "history",
+  },
+  {
+    label: "Sports",
+    value: "sports",
+  },
+  {
+    label: "Art",
+    value: "art",
+  },
+  {
+    label: "Geography",
+    value: "geography",
+  },
+  {
+    label: "Entertainment",
+    value: "entertainment",
+  },
+  {
+    label: "Politics",
+    value: "politics",
+  },
+  {
+    label: "Animals",
+    value: "animals",
+  },
+  {
+    label: "Vehicles",
+    value: "vehicles",
+  },
+  {
+    label: "Comics",
+    value: "comics",
+  },
+  {
+    label: "Gadgets",
+    value: "gadgets",
+  },
+  {
+    label: "Anime & Manga",
+    value: "anime",
+  },
+  {
+    label: "Cartoons & Animations",
+    value: "cartoons",
+  },
+];
 const MultiplayerSetupScreen = () => {
   // State for options
   const [category, setCategory] = useState("");
@@ -35,6 +94,7 @@ const MultiplayerSetupScreen = () => {
             // Add more categories as needed
           ]}
         /> */}
+        <DropdownMenu data={dropdownData} />
         {/* Difficulty Selection */}
         <Text style={{ marginTop: 20 }}>Select Difficulty</Text>
         <RadioButton.Group
