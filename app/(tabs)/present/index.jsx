@@ -1,15 +1,37 @@
 import { Image, StyleSheet, Platform, View, ScrollView } from "react-native";
 
-import { HelloWave } from "@/components/HelloWave";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
 import Bg from "@/components/Bg";
+import RoomModal from "@/components/RoomModal";
 import { Button, Text, useTheme } from "react-native-paper";
 import { Link, useNavigation } from "expo-router";
+import { useState } from "react";
+import { createRoom } from "../../../services/multiplayerService";
+import { useCurrentUser } from "@/context/CurrentUserContext";
+import { useRouter } from "expo-router";
+
 export default function HomeScreen() {
+  const { currentUser } = useCurrentUser();
+  const router = useRouter();
+
   const navigation = useNavigation();
   const theme = useTheme();
+  const [showRoomModal, setShowRoomModal] = useState(false);
+  async function handleCreateRoom(quizSetting) {
+    const roomId = await createRoom(currentUser.uid, quizSetting);
+    // setShowRoomModal(false);
+    // console.log(roomId);
+    if (roomId) {
+      navigateToRoom(roomId);
+    }
+  }
+  function navigateToRoom(roomId) {
+    setShowRoomModal(false);
+
+    router.push({
+      pathname: "/(tabs)/present/[roomId]",
+      params: { roomId },
+    });
+  }
   return (
     <Bg>
       <View style={styles.container}>
@@ -30,36 +52,13 @@ export default function HomeScreen() {
                 Practice
               </Button>
             </Link>
-            <Link href={"/(tabs)/home/multiplayer"} asChild>
-              <Button
-                mode="elevated"
-                theme={theme}
-                buttonColor={theme.colors.primary}
-                textColor={theme.colors.onPrimary}
-              >
-                Play
-              </Button>
-            </Link>
-            <Link href={"/(tabs)/home/multiplayer"} asChild>
-              <Button
-                mode="elevated"
-                theme={theme}
-                buttonColor={theme.colors.primary}
-                textColor={theme.colors.onPrimary}
-              >
-                Create a room
-              </Button>
-            </Link>
-            <Link href={"/(tabs)/home/multiplayer"} asChild>
-              <Button
-                mode="elevated"
-                theme={theme}
-                buttonColor={theme.colors.primary}
-                textColor={theme.colors.onPrimary}
-              >
-                Join a room
-              </Button>
-            </Link>
+            <Button
+              mode="elevated"
+              theme={theme}
+              onPress={() => setShowRoomModal(true)}
+            >
+              Multiplayer
+            </Button>
           </View>
         </View>
         <ScrollView
@@ -79,6 +78,12 @@ export default function HomeScreen() {
           </Text>
         </ScrollView>
       </View>
+      <RoomModal
+        visible={showRoomModal}
+        onClose={() => setShowRoomModal(false)}
+        onCreateRoom={handleCreateRoom}
+        onJoinRoom={navigateToRoom}
+      />
     </Bg>
   );
 }

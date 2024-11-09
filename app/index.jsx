@@ -17,7 +17,7 @@ export default function WelcomeScreen() {
   useEffect(() => {
     if (!loading) {
       if (currentUser) {
-        router.replace("/home"); // Redirect to main screen if logged in
+        router.replace("/(tabs)/present"); // Redirect to main screen if logged in
       } else {
         setRedirecting(false); // Only set redirecting to false if no user
       }

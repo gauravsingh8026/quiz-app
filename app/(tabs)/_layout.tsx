@@ -20,7 +20,7 @@ export default function TabLayout() {
         tabBarInactiveTintColor: theme.colors.onPrimaryContainer
       }}>
       <Tabs.Screen
-        name="home"
+        name="present"
         options={{
           title: 'Present',
           tabBarIcon: ({ color, focused }) => (
